@@ -1,0 +1,15 @@
+#!/bin/bash
+userName=$1
+folderName=$2
+if ! id "$userName" > /dev/null 2>&1; then
+    echo -e "\e[31mERROR\e[0m User $userName does not exist. Use the correct synth."
+elif [ -z "$folderName" ]; then
+    echo -e "\e[31mERROR\e[0m File name is missing. Use the correct synth."
+elif [ ! -e "$folderName" ]; then
+    echo -e "\e[31mERROR\e[0m File $folderName does not exist."
+else
+    ls -l "$folderName"
+    sudo chown "$userName:$userName" "$folderName"
+    echo -e "\e[32mSUCCESS\e[0m Owner changed"
+    ls -l "$folderName"
+fi
